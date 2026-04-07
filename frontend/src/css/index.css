@@ -330,7 +330,7 @@ h3 {
   padding: 24px;
   transition: all var(--transition);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hms-card::before {
@@ -927,6 +927,8 @@ select.form-control {
   border-radius: var(--radius-md) !important;
   color: var(--text-primary) !important;
   box-shadow: var(--shadow-lg) !important;
+   z-index: 10001 !important;  
+  position: fixed !important;
 }
 
 .react-datepicker__header {
@@ -963,6 +965,7 @@ select.form-control {
   padding: 9px 16px !important;
   font-family: 'Inter', sans-serif !important;
   font-size: 14px !important;
+   width: 100% !important;
 }
 
 .react-datepicker__input-container input:focus {
@@ -972,7 +975,8 @@ select.form-control {
 }
 
 .react-datepicker-popper {
-  z-index: 9999 !important;
+  z-index: 10001 !important;
+  position: fixed !important;
 }
 
 /* ============================================
