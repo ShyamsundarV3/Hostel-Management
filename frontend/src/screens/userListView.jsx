@@ -57,7 +57,6 @@ const UserListView = ({ history }) => {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Password</th>
                 <th>Admin</th>
                 <th>Actions</th>
               </tr>
@@ -69,9 +68,6 @@ const UserListView = ({ history }) => {
                   <td style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{user.name}</td>
                   <td>
                     <a href={`mailto:${user.email}`}>{user.email}</a>
-                  </td>
-                  <td style={{ fontFamily: 'monospace', opacity: 0.8 }}>
-                    {user.password && (user.password.startsWith("$2a$") || user.password.startsWith("$2b$")) ? <span style={{color: 'var(--warning)', fontSize: '12px'}}>(Hashed hidden)</span> : user.password}
                   </td>
                   <td>
                     {user.isAdmin ? (

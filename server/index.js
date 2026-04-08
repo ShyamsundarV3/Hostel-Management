@@ -32,10 +32,8 @@ app.use("/uploads", express.static("uploads"));
 
 // ✅ CORS — allow your Netlify frontend
 app.use(cors({
-  origin: 'https://residential-hostelmanagement.netlify.app',
+  origin: process.env.FRONTEND_URL || "https://residential-hostel-management.netlify.app",
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // ✅ Routes — prefixed with /api

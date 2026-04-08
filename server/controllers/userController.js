@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 import User from "../models/user.js";
+import { OAuth2Client } from "google-auth-library";
+import crypto from "crypto";
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -94,7 +96,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
+  const users = await User.find({}).select("-password");
   res.json(users);
 });
 
@@ -143,6 +145,65 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+const googleLogin = asyncHandler(async (req, res) => {
+  const { credential } = req.body;
+
+  if (!credential) {
+    res.status(400);
+    throw new Error("Google credential is required");
+  }
+
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  if (!clientId) {
+    res.status(500);
+    throw new Error("Google OAuth is not configured on the server");
+  }
+
+  const client = new OAuth2Client(clientId);
+
+  let ticket;
+  try {
+    ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: clientId,
+    });
+  } catch (err) {
+    res.status(401);
+    throw new Error("Invalid Google token");
+  }
+
+  const payload = ticket.getPayload();
+  const { email, name, sub: googleId, picture } = payload;
+
+  // Check if user exists
+  let user = await User.findOne({ email });
+
+  if (user) {
+    // Update googleId if not set
+    if (!user.googleId) {
+      user.googleId = googleId;
+      await user.save();
+    }
+  } else {
+    // Create new user with a random secure password
+    const randomPassword = crypto.randomBytes(32).toString("hex");
+    user = await User.create({
+      name,
+      email,
+      password: randomPassword,
+      googleId,
+    });
+  }
+
+  res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    isAdmin: user.isAdmin,
+    token: generateToken(user._id),
+  });
+});
+
 export {
   authUser,
   registerUser,
@@ -152,4 +213,5 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  googleLogin,
 };

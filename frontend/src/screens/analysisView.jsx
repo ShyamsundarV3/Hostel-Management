@@ -40,13 +40,10 @@ const AnalysisView = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attendance, dispatch]);
 
- const changeDate = (date) => {
-  if (date) {
-    const formattedDate = date.toISOString().split('T')[0];
-    dispatch(getAnalysisByDate(formattedDate));
+  const changeDate = (date) => {
+    dispatch(getAnalysisByDate(date.toString().substring(0, 15)));
     setStartDate(date);
-  }
-};
+  };
   const showModal = () => setModal(true);
   const closeModal = () => setModal(false);
 
@@ -98,18 +95,11 @@ const AnalysisView = () => {
             </div>
             <div style={{ lineHeight: 1 }}>
               <DatePicker
-  selected={startDate}
-  onChange={changeDate}
-  dateFormat="yyyy-MM-dd"
-  popperPlacement="bottom-end"
-  popperModifiers={{
-    offset: { enabled: true, offset: '5px, 10px' },
-    preventOverflow: { enabled: true, padding: 8 }
-  }}
-  showPopperArrow={true}
-  placeholderText="Select date"
-  maxDate={new Date()}
-/>
+                selected={startDate}
+                onChange={(date) => changeDate(date)}
+                dateFormat="yyyy-MM-dd"
+                popperPlacement="bottom-end"
+              />
             </div>
           </div>
         </div>
