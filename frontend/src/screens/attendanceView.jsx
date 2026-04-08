@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getStudentsByRoomNo as action } from "../actions/studentActions";
 import AttendanceTable from "../components/attendanceTable";
 
 const AttendanceView = () => {
   const [roomNo, setRoomNo] = useState("");
   const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   useEffect(() => {}, [dispatch]);
+
+  // Redirect to login if not authenticated
+  if (!userInfo) {
+    return <Redirect to="/login" />;
+  }
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(action(roomNo));

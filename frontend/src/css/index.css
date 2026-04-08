@@ -239,17 +239,23 @@ main {
 .hms-search {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0;
+}
+
+.hms-search > div {
+  display: flex;
+  align-items: center;
 }
 
 .hms-search__input {
   background: var(--bg-input) !important;
   border: 1.5px solid var(--border) !important;
-  border-radius: var(--radius-md) !important;
+  border-radius: var(--radius-md) 0 0 var(--radius-md) !important;
   color: var(--text-primary) !important;
   font-size: 14px !important;
   padding: 9px 16px 9px 40px !important;
   min-width: 260px;
+  height: 40px;
   transition: all var(--transition) !important;
   font-family: 'Inter', sans-serif !important;
 }
@@ -267,12 +273,14 @@ main {
 .hms-search__btn {
   background: var(--accent-gradient) !important;
   border: none !important;
-  border-radius: var(--radius-md) !important;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0 !important;
   color: #fff !important;
   font-size: 14px !important;
   font-weight: 600 !important;
   padding: 9px 20px !important;
+  height: 40px;
   transition: all var(--transition) !important;
+  white-space: nowrap;
 }
 
 .hms-search__btn:hover {
@@ -353,6 +361,10 @@ h3 {
   padding: 24px;
   transition: all var(--transition);
   position: relative;
+  overflow: visible !important;
+}
+
+.hms-card * {
   overflow: visible;
 }
 
@@ -1069,6 +1081,20 @@ input:-webkit-autofill:focus {
 
 .react-datepicker-popper {
   z-index: 9999 !important;
+  position: absolute !important;
+}
+
+.react-datepicker-wrapper {
+  display: inline-block;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+/* Ensure datepicker doesn't get clipped */
+.react-datepicker__input-container {
+  position: relative;
 }
 
 /* ============================================

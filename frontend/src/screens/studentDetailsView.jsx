@@ -39,7 +39,7 @@ const StudentDetailsView = ({ match, history }) => {
 
   useEffect(() => {
     if (successDelete) {
-      history.push("/");
+      history.push("/home");
     }
     if (successUpdate) {
       dispatch({ type: STUDENT_UPDATE_RESET });
@@ -72,7 +72,7 @@ const StudentDetailsView = ({ match, history }) => {
 
   return (
     <>
-      <Link className="btn btn-light my-3" to="/">
+      <Link className="btn btn-light my-3" to="/home">
         Go Back
       </Link>
       {loading || loadingUpdate || loadingDelete ? (
@@ -86,7 +86,7 @@ const StudentDetailsView = ({ match, history }) => {
           {student && (
             <div className="hms-card" style={{ padding: '28px' }}>
               <Row>
-                <Col md={3}>
+                <Col md={2}>
                   <Image src={student.image} alt={student.name} fluid style={{ borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)' }} />
                 </Col>
                 <Col md={4}>
@@ -94,54 +94,55 @@ const StudentDetailsView = ({ match, history }) => {
                   <ListGroup variant="flush">
                     <ListGroup.Item>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.8.33 1.6.59 2.37a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.77.26 1.57.46 2.37.59A2 2 0 0 1 22 16.92z"/></svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5, flexShrink: 0 }}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.8.33 1.6.59 2.37a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.77.26 1.57.46 2.37.59A2 2 0 0 1 22 16.92z"/></svg>
                         Phone: <a href={`tel:${student.contact}`} style={{ fontWeight: 500 }}>{student.contact}</a>
                       </span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5, flexShrink: 0 }}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                         Father: <a href={`tel:${student.fatherContact}`} style={{ fontWeight: 500 }}>{student.fatherContact}</a>
                       </span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5, flexShrink: 0 }}><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         City: {student.city}
                       </span>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5, flexShrink: 0 }}><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                         Address: {student.address}
                       </span>
                     </ListGroup.Item>
                   </ListGroup>
                 </Col>
-                <Col md={3}>
+                <Col md={4}>
                   <Card>
                     <ListGroup variant="flush">
                       <ListGroup.Item>
-                        <Row>
-                          <Col style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>Room No</Col>
-                          <Col style={{ fontWeight: 600 }}>{student.roomNo}</Col>
+                        <Row style={{ alignItems: 'center' }}>
+                          <Col xs={5} style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>Room No</Col>
+                          <Col xs={7} style={{ fontWeight: 600 }}>{student.roomNo}</Col>
                         </Row>
                       </ListGroup.Item>
                       <ListGroup.Item>
-                        <Row>
-                          <Col style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>Block No</Col>
-                          <Col style={{ fontWeight: 600 }}>{student.blockNo}</Col>
+                        <Row style={{ alignItems: 'center' }}>
+                          <Col xs={5} style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>Block No</Col>
+                          <Col xs={7} style={{ fontWeight: 600 }}>{student.blockNo}</Col>
                         </Row>
                       </ListGroup.Item>
                       <ListGroup.Item>
-                        <Row>
-                          <Col style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>Status</Col>
-                          <Col>
+                        <Row style={{ alignItems: 'center' }}>
+                          <Col xs={5} style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>Status</Col>
+                          <Col xs={7}>
                             <Form.Control
                               size="sm"
                               as="select"
                               value={status}
                               onChange={(e) => setStatus(e.target.value)}
+                              style={{ minWidth: '110px' }}
                             >
                               {["Hostel", "Outside", "Home"].map((x) => (
                                 <option key={x} value={x}>

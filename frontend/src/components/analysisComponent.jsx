@@ -11,7 +11,7 @@ const AnalysisComponent = () => {
   const [data, setData] = useState([]);
   const [headers, setHeaders] = useState([]);
   useEffect(() => {
-    if (attendance) {
+    if (attendance && attendance.details) {
       setHeaders([
         { label: "Name", key: "name" },
         { label: "Contact", key: "contact" },
@@ -47,7 +47,7 @@ const AnalysisComponent = () => {
         <Loading />
       ) : (
         <>
-          {attendance && (
+          {attendance && attendance.details && (
             <>
               <div className="hms-table">
                 <Table responsive className="table-sm">
@@ -60,7 +60,7 @@ const AnalysisComponent = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {attendance &&
+                    {attendance && attendance.details &&
                       Object.entries(attendance.details).map((student) => (
                         <tr key={student[0]}>
                           <td style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{student[1].name}</td>

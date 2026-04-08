@@ -35,7 +35,7 @@ const AddStudentView = () => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: STUDENT_UPDATE_RESET });
-      history.push("/");
+      history.push("/home");
     }
     if (history.location.state && history.location.state.studentProps) {
       setIsEdit(true);
@@ -52,7 +52,7 @@ const AddStudentView = () => {
       setStatus(student.status);
     }
     if (success) {
-      history.push("/");
+      history.push("/home");
     }
   }, [dispatch, history, success, successUpdate]);
 
@@ -94,7 +94,7 @@ const AddStudentView = () => {
 
   return (
     <>
-      <Link to="/" className="btn btn-light my-3">
+      <Link to="/home" className="btn btn-light my-3">
         Go Back
       </Link>
 
@@ -116,7 +116,7 @@ const AddStudentView = () => {
             </p>
             {loading && <Loading />}
             {error && <Message variant="danger">{error}</Message>}
-            <Form onSubmit={submitHandler}></Form>
+            <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -134,7 +134,7 @@ const AddStudentView = () => {
                 onChange={(e) => setStatus(e.target.value)}
               >
                 {["Hostel", "Outside", "Home"].map((x) => (
-                  <option key={x + 1} value={x + 1}>
+                  <option key={x} value={x}>
                     {x}
                   </option>
                 ))}
@@ -220,6 +220,7 @@ const AddStudentView = () => {
             >
               {isEdit ? "Update Student" : "Add Student"}
             </Button>
+            </Form>
           </div>
         </>
       )}

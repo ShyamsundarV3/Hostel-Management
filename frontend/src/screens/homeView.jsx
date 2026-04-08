@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { Row, Col, ButtonGroup, ToggleButton } from "react-bootstrap";
 import StudentsTableView from "./studentTableView";
 import Student from "../components/student";
@@ -14,12 +15,21 @@ const HomeView = ({ match }) => {
   const [viewMode, setViewMode] = useState("grid");
 
   const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const studentsList = useSelector((state) => state.studentsList);
   const { loading, error, students, page, pages } = studentsList;
 
   React.useEffect(() => {
-    dispatch(listStudents(keyword, pageNumber));
-  }, [dispatch, keyword, pageNumber]);
+    if (userInfo) {
+      dispatch(listStudents(keyword, pageNumber));
+    }
+  }, [dispatch, keyword, pageNumber, userInfo]);
+
+  // Redirect to login if not authenticated
+  if (!userInfo) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <>

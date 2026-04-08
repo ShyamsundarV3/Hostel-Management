@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Button, Modal, Form } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,8 @@ const AnalysisView = () => {
   const [days, setDays] = useState(0);
   const [idList, setIdList] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const attendanceAnalysis = useSelector((state) => state.attendanceAnalysis);
   const { attendance } = attendanceAnalysis;
   const attendanceDelete = useSelector((state) => state.attendanceDelete);
@@ -28,17 +30,23 @@ const AnalysisView = () => {
   } = attendanceDelete;
 
   useEffect(() => {
-    if (attendance) {
+    if (!userInfo) return;
+    if (attendance && attendance.details) {
       var temp = [...idList];
       Object.entries(attendance.details).forEach((at) => {
         temp.push(at[0]);
       });
       setIdList(temp);
-    } else {
+    } else if (!attendance) {
       dispatch(getAnalysisByDate(startDate.toString().substring(0, 15)));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [attendance, dispatch]);
+  }, [attendance, dispatch, userInfo]);
+
+  // Redirect to login if not authenticated
+  if (!userInfo) {
+    return <Redirect to="/login" />;
+  }
 
   const changeDate = (date) => {
     dispatch(getAnalysisByDate(date.toString().substring(0, 15)));
@@ -55,7 +63,7 @@ const AnalysisView = () => {
   return (
     <>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
-        <Link to="/" className="btn btn-light my-3" style={{ margin: 0 }}>
+        <Link to="/home" className="btn btn-light my-3" style={{ margin: 0 }}>
           Go Back
         </Link>
         <Button variant="outline-danger" size="sm" onClick={showModal} style={{ display: "flex", alignItems: "center", gap: "6px" }}>

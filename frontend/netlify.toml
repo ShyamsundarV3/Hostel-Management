@@ -4,9 +4,16 @@
 
 [build.environment]
   NODE_VERSION = "18"
+  REACT_APP_GOOGLE_CLIENT_ID = "511493887273-lslht4at8nmmv8moqbd6765o5v0t53ck.apps.googleusercontent.com"
 
 [[redirects]]
   from = "/api/*"
   to = "https://hostel-management-1-xwlr.onrender.com/api/:splat"
   status = 200
   force = true
+
+# SPA catch-all — must be LAST
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

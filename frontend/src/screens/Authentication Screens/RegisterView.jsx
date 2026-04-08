@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { register, googleLogin } from "../../actions/userActions";
 import "../../css/login.css";
 
-const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_ID =
+  process.env.REACT_APP_GOOGLE_CLIENT_ID ||
+  '511493887273-lslht4at8nmmv8moqbd6765o5v0t53ck.apps.googleusercontent.com';
 
 const RegisterView = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -22,7 +24,7 @@ const RegisterView = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo: loginUserInfo } = userLogin;
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = location.search ? location.search.split("=")[1] : "/home";
 
   useEffect(() => {
     if (userInfo || loginUserInfo) {
