@@ -42,7 +42,7 @@ app.use("/student", studentRoutes);
 app.use("/attendance", attendanceRoutes);
 
 app.get("/", (req, res) => {
-  res.send("API is running....");
+   res.redirect("https://residential-hostelmanagement.netlify.app/");
 });
 
 // Error handling
